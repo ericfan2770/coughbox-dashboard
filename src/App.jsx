@@ -1,5 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 class App extends Component {
   state = {
@@ -17,44 +25,46 @@ class App extends Component {
     return (
       <React.Fragment>
         {
-          <table>
-            <thead>
-              <th>Status</th>
-              <th>Patient ID</th>
-              <th>Box ID</th>
-              <th>Site</th>
-              <th>Date Deployed</th>
-              <th>First Online</th>
-              <th>Cough Count</th>
-              <th>Nights Since Online</th>
-              <th>Most Recent Cough</th>
-              <th>CPU Temperature</th>
-              <th>Microphone Status</th>
-              <th>Storage</th>
-              <th>Algo Version</th>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Status</TableCell>
+                <TableCell>Patient ID</TableCell>
+                <TableCell>Box ID</TableCell>
+                <TableCell>Site</TableCell>
+                <TableCell>Date Deployed</TableCell>
+                <TableCell>First Online</TableCell>
+                <TableCell>Cough Count</TableCell>
+                <TableCell>Nights Since Online</TableCell>
+                <TableCell>Most Recent Cough</TableCell>
+                <TableCell>CPU Temperature</TableCell>
+                <TableCell>Microphone Status</TableCell>
+                <TableCell>Storage</TableCell>
+                <TableCell>Algo Version</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {this.state.devices.map((row) => (
-                <tr>
-                  <td>{row.status}</td>
-                  <td>{row.patientId}</td>
-                  <td>{row.boxId}</td>
-                  <td>{row.site}</td>
-                  <td>{row.dateDeployed}</td>
-                  <td>{row.dateOnline}</td>
-                  <td>
+                <TableRow key={row.id}>
+                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{row.patientId}</TableCell>
+                  <TableCell>{row.boxId}</TableCell>
+                  <TableCell>{row.site}</TableCell>
+                  <TableCell>{row.dateDeployed}</TableCell>
+                  <TableCell>{row.dateOnline}</TableCell>
+                  <TableCell>
                     {row.count[0].daily + " / " + row.count[0].cumulative}
-                  </td>
-                  <td>{row.nightsSinceOnline}</td>
-                  <td>{row.mostRecentCough}</td>
-                  <td>{row.cpuTemp}</td>
-                  <td>{row.micStatus}</td>
-                  <td>{row.storage}</td>
-                  <td>{row.version}</td>
-                </tr>
+                  </TableCell>
+                  <TableCell>{row.nightsSinceOnline}</TableCell>
+                  <TableCell>{row.mostRecentCough}</TableCell>
+                  <TableCell>{row.cpuTemp}</TableCell>
+                  <TableCell>{row.micStatus}</TableCell>
+                  <TableCell>{row.storage}</TableCell>
+                  <TableCell>{row.version}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         }
       </React.Fragment>
     );
