@@ -8,64 +8,58 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import MaterialTable from "material-table";
 
 class App extends Component {
-  state = {
-    devices: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      columns: [
+        { title: "Status", field: "status" },
+        { title: "Patient ID", field: "patientId" },
+        { title: "Box ID", field: "boxId" },
+        { title: "Site", field: "site" },
+        { title: "Date Deployed", field: "dateDeployed" },
+        { title: "First Online", field: "firstOnline" },
+        { title: "Cough Count", field: "coughCount" },
+        { title: "Nights Since Online", field: "nightsSinceOnline" },
+        { title: "Most Recent Cough", field: "mostRecentCough" },
+        { title: "CPU Temperature", field: "cpuTemp" },
+        { title: "Microphone Status", field: "micStatus" },
+        { title: "Storage", field: "storage" },
+        { title: "Algo Version", field: "version" },
+      ],
+      data: [],
+    };
+  }
 
   // to get the count from the first device: res.data.Devices[1].count[0].daily
   componentDidMount() {
     axios.get(`https://ericfan2770.github.io/data.json`).then((res) => {
-      this.setState({ devices: res.data.Devices });
+      this.setState({
+        data: res.data.Devices.map((row) => ({
+          status: row.status,
+          patientId: row.patientId,
+          boxId: row.boxId,
+          site: row.site,
+          dateDeployed: row.dateDeployed,
+          dateOnline: row.dateOnline,
+          coughCount: row.count[0].daily + " / " + row.count[0].cumulative,
+          nightsSinceOnline: row.nightsSinceOnline,
+          mostRecentCough: row.mostRecentCough,
+          cpuTemp: row.cpuTemp,
+          micStatus: row.micStatus,
+          storage: row.storage,
+          version: row.version,
+        })),
+      });
     });
   }
 
   render() {
     return (
       <React.Fragment>
-        {
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Status</TableCell>
-                <TableCell>Patient ID</TableCell>
-                <TableCell>Box ID</TableCell>
-                <TableCell>Site</TableCell>
-                <TableCell>Date Deployed</TableCell>
-                <TableCell>First Online</TableCell>
-                <TableCell>Cough Count</TableCell>
-                <TableCell>Nights Since Online</TableCell>
-                <TableCell>Most Recent Cough</TableCell>
-                <TableCell>CPU Temperature</TableCell>
-                <TableCell>Microphone Status</TableCell>
-                <TableCell>Storage</TableCell>
-                <TableCell>Algo Version</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.devices.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.patientId}</TableCell>
-                  <TableCell>{row.boxId}</TableCell>
-                  <TableCell>{row.site}</TableCell>
-                  <TableCell>{row.dateDeployed}</TableCell>
-                  <TableCell>{row.dateOnline}</TableCell>
-                  <TableCell>
-                    {row.count[0].daily + " / " + row.count[0].cumulative}
-                  </TableCell>
-                  <TableCell>{row.nightsSinceOnline}</TableCell>
-                  <TableCell>{row.mostRecentCough}</TableCell>
-                  <TableCell>{row.cpuTemp}</TableCell>
-                  <TableCell>{row.micStatus}</TableCell>
-                  <TableCell>{row.storage}</TableCell>
-                  <TableCell>{row.version}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        }
+        <MaterialTable columns={this.state.columns} data={this.state.data} />
       </React.Fragment>
     );
   }
