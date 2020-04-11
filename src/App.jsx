@@ -15,19 +15,27 @@ class App extends Component {
     super(props);
     this.state = {
       columns: [
-        { title: "Status", field: "status" },
+        { title: "Status", field: "status", editable: "never" },
         { title: "Patient ID", field: "patientId" },
-        { title: "Box ID", field: "boxId" },
+        { title: "Box ID", field: "boxId", editable: "never" },
         { title: "Site", field: "site" },
         { title: "Date Deployed", field: "dateDeployed" },
-        { title: "First Online", field: "firstOnline" },
-        { title: "Cough Count", field: "coughCount" },
-        { title: "Nights Since Online", field: "nightsSinceOnline" },
-        { title: "Most Recent Cough", field: "mostRecentCough" },
-        { title: "CPU Temperature", field: "cpuTemp" },
-        { title: "Microphone Status", field: "micStatus" },
-        { title: "Storage", field: "storage" },
-        { title: "Algo Version", field: "version" },
+        { title: "First Online", field: "firstOnline", editable: "never" },
+        { title: "Cough Count", field: "coughCount", editable: "never" },
+        {
+          title: "Nights Since Online",
+          field: "nightsSinceOnline",
+          editable: "never",
+        },
+        {
+          title: "Most Recent Cough",
+          field: "mostRecentCough",
+          editable: "never",
+        },
+        { title: "CPU Temperature", field: "cpuTemp", editable: "never" },
+        { title: "Microphone Status", field: "micStatus", editable: "never" },
+        { title: "Storage", field: "storage", editable: "never" },
+        { title: "Algo Version", field: "version", editable: "never" },
       ],
       data: [],
     };
@@ -43,7 +51,7 @@ class App extends Component {
           boxId: row.boxId,
           site: row.site,
           dateDeployed: row.dateDeployed,
-          dateOnline: row.dateOnline,
+          firstOnline: row.firstOnline,
           coughCount: row.count[0].daily + " / " + row.count[0].cumulative,
           nightsSinceOnline: row.nightsSinceOnline,
           mostRecentCough: row.mostRecentCough,
@@ -59,7 +67,16 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <MaterialTable columns={this.state.columns} data={this.state.data} />
+        <MaterialTable
+          title="CoughBox Dashboard"
+          columns={this.state.columns}
+          data={this.state.data}
+          options={{
+            search: false,
+            sorting: false,
+            paging: false,
+          }}
+        />
       </React.Fragment>
     );
   }
