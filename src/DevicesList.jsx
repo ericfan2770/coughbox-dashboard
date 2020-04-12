@@ -14,7 +14,7 @@ import {
   getStorageStyle,
 } from "./getStyle";
 
-const headerColor = "WhiteSmoke";
+const headerColor = "White";
 const columnColor = "WhiteSmoke";
 
 class DevicesList extends Component {
