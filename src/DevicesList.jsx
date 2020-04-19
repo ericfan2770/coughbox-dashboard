@@ -493,7 +493,7 @@ class DevicesList extends Component {
                       }
                     );
                   }
-                });
+                }, 600);
               }),
           }}
           icons={{
