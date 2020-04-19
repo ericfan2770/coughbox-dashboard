@@ -482,11 +482,16 @@ class DevicesList extends Component {
                 setTimeout(() => {
                   resolve();
                   if (oldData) {
-                    this.setState((prevState) => {
-                      const data = [...prevState.data];
-                      data[data.indexOf(oldData)] = newData;
-                      return { ...prevState, data };
-                    });
+                    this.setState(
+                      (prevState) => {
+                        const data = [...prevState.data];
+                        data[data.indexOf(oldData)] = newData;
+                        return { ...prevState, data };
+                      },
+                      () => {
+                        console.log("Callback value", this.state.data);
+                      }
+                    );
                   }
                 });
               }),
