@@ -20,6 +20,7 @@ import Check from "@material-ui/icons/Check";
 import Clear from "@material-ui/icons/Clear";
 
 import {
+  formatNum,
   getStatusStyle,
   getCpuTempStyle,
   getMicStatusStyle,
@@ -243,7 +244,10 @@ class DevicesList extends Component {
           site: row.site,
           dateDeployed: row.dateDeployed,
           firstOnline: row.firstOnline,
-          coughCount: row.count[0].daily + " / " + row.count[0].cumulative,
+          coughCount:
+            formatNum(row.count[0].daily) +
+            " / " +
+            formatNum(row.count[0].cumulative),
           nightsSinceOnline: row.nightsSinceOnline,
           mostRecentCough: row.mostRecentCough,
           cpuTemp: row.cpuTemp + "°C",
@@ -466,18 +470,6 @@ class DevicesList extends Component {
                     this.setState((prevState) => {
                       const data = [...prevState.data];
                       data[data.indexOf(oldData)] = newData;
-                      // HTTP put request
-                      axios
-                        .put(
-                          `https://ericfan2770.github.io/data.json/{this.state.data}`,
-                          this.state.data
-                        )
-                        .then((response) => {
-                          console.log(response);
-                        })
-                        .catch((error) => {
-                          console.log(error.response);
-                        });
                       return { ...prevState, data };
                     });
                   }
@@ -496,3 +488,16 @@ class DevicesList extends Component {
 }
 
 export default DevicesList;
+
+// // HTTP put request
+// axios
+// .put(
+//   `https://ericfan2770.github.io/data.json/{this.state.data}`,
+//   this.state.data
+// )
+// .then((response) => {
+//   console.log(response);
+// })
+// .catch((error) => {
+//   console.log(error.response);
+// });
