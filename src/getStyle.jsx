@@ -7,8 +7,10 @@ export function getStatusStyle(status) {
     background = "LightGreen";
   } else if (status === "Deployed") {
     background = "NavajoWhite";
-  } else if (status === "Offline_1" || status === "Offline_2") {
+  } else if (status === "Offline") {
     background = "LightCoral";
+  } else if (status === "Inactive") {
+    background = "LightGray";
   } else if (status === "Returned") {
     background = "LightSkyBlue";
   } else {
