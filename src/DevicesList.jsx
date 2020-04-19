@@ -3,17 +3,17 @@ import axios from "axios";
 
 import MaterialTable from "material-table";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
+// import { makeStyles } from "@material-ui/core/styles";
+// import Table from "@material-ui/core/Table";
+// import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
+// import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+// import Paper from "@material-ui/core/Paper";
 
-import { borders } from "@material-ui/system";
-import Box from "@material-ui/core/Box";
+// import { borders } from "@material-ui/system";
+// import Box from "@material-ui/core/Box";
 
 import Edit from "@material-ui/icons/Edit";
 import Check from "@material-ui/icons/Check";
@@ -163,6 +163,20 @@ class DevicesList extends Component {
           },
         },
         {
+          title: "Days Since Test",
+          field: "daysSinceTest",
+          editable: "never",
+          headerStyle: {
+            pointerEvents: "none", // prevent column drag
+            whiteSpace: "nowrap",
+            textAlign: "right",
+          },
+          cellStyle: {
+            whiteSpace: "nowrap",
+            textAlign: "center",
+          },
+        },
+        {
           title: "CPU Temperature",
           field: "cpuTemp",
           editable: "never",
@@ -250,6 +264,7 @@ class DevicesList extends Component {
             formatNum(row.count[0].cumulative),
           nightsSinceOnline: row.nightsSinceOnline,
           mostRecentCough: row.mostRecentCough,
+          daysSinceTest: row.daysSinceTest,
           cpuTemp: row.cpuTemp + "°C",
           micStatus: row.micStatus,
           storage: row.storage,
